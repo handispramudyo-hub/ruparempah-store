@@ -269,8 +269,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 14),
               ],
+              const SizedBox(height: 14),
               OutlinedButton.icon(
                 onPressed: _pickImage,
                 icon: const Icon(Icons.photo_library_outlined),
