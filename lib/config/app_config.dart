@@ -9,7 +9,7 @@ class AppConfig {
   static const String storeName = 'UMKM Rupa Rempah Solo';
 
   /// Nomor telepon placeholder. Ganti dengan nomor resmi toko.
-  static const String storePhone = '081234567890';
+  static const String storePhone = '0895706340406';
 
   /// Pesan awal SMS.
   static const String smsMessage =

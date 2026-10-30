@@ -105,8 +105,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             gradient: AppGradients.gold,
                             borderRadius: BorderRadius.circular(18),
                           ),
-                          child: const Icon(Icons.spa,
-                              size: 34, color: AppColors.deepGreen),
+                          child: const Icon(
+                            Icons.spa,
+                            size: 34,
+                            color: AppColors.darkGreen,
+                          ),
                         ),
                         const SizedBox(height: 22),
                         const Text(
@@ -139,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(20, 240, 20, 28),
               child: Container(
-                padding: const EdgeInsets.fromLTRB(22, 26, 22, 24),
+                padding: const EdgeInsets.fromLTRB(22, 30, 22, 30),
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   borderRadius: BorderRadius.circular(26),
@@ -213,6 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
+                      const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
