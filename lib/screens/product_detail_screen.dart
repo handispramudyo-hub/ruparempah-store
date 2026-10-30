@@ -6,6 +6,7 @@ import '../providers/cart_provider.dart';
 import '../theme/app_theme.dart';
 import '../utils/product_visual.dart';
 import '../widgets/gradient_button.dart';
+import '../widgets/product_image.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key, required this.product});
@@ -64,7 +65,16 @@ class ProductDetailScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Center(child: Icon(icon, size: 120, color: Colors.white)),
+                    if (product.imagePath.isNotEmpty)
+                      Positioned.fill(
+                        child: ProductImage(
+                          imagePath: product.imagePath,
+                          fit: BoxFit.cover,
+                          fallback: const SizedBox.shrink(),
+                        ),
+                      )
+                    else
+                      Center(child: Icon(icon, size: 120, color: Colors.white)),
                   ],
                 ),
               ),
@@ -94,7 +104,9 @@ class ProductDetailScreen extends StatelessWidget {
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 4),
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.sageGreen.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(20),

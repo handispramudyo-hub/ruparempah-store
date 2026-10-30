@@ -6,6 +6,7 @@ import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
 import '../theme/app_theme.dart';
 import '../utils/product_visual.dart';
+import '../widgets/product_image.dart';
 import 'product_form_screen.dart';
 
 class ManageProductsScreen extends StatelessWidget {
@@ -13,9 +14,7 @@ class ManageProductsScreen extends StatelessWidget {
 
   Future<void> _openForm(BuildContext context, {Product? product}) async {
     final result = await Navigator.of(context).push<Product>(
-      MaterialPageRoute(
-        builder: (_) => ProductFormScreen(product: product),
-      ),
+      MaterialPageRoute(builder: (_) => ProductFormScreen(product: product)),
     );
     if (result == null || !context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
@@ -89,9 +88,11 @@ class ManageProductsScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.inventory_2_outlined,
-                      size: 72,
-                      color: AppColors.muted.withValues(alpha: 0.5)),
+                  Icon(
+                    Icons.inventory_2_outlined,
+                    size: 72,
+                    color: AppColors.muted.withValues(alpha: 0.5),
+                  ),
                   const SizedBox(height: 12),
                   const Text(
                     'Belum ada produk.',
@@ -123,8 +124,11 @@ class ManageProductsScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.info_outline,
-                          size: 18, color: AppColors.darkGreen),
+                      const Icon(
+                        Icons.info_outline,
+                        size: 18,
+                        color: AppColors.darkGreen,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -188,7 +192,13 @@ class _ProductRow extends StatelessWidget {
               color: color.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(icon, color: color, size: 26),
+            child: product.imagePath.isNotEmpty
+                ? ProductImage(
+                    imagePath: product.imagePath,
+                    fit: BoxFit.cover,
+                    fallback: Icon(icon, color: color, size: 26),
+                  )
+                : Icon(icon, color: color, size: 26),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -223,14 +233,20 @@ class _ProductRow extends StatelessWidget {
           IconButton(
             tooltip: 'Edit produk',
             onPressed: onEdit,
-            icon: const Icon(Icons.edit_outlined,
-                color: AppColors.darkGreen, size: 20),
+            icon: const Icon(
+              Icons.edit_outlined,
+              color: AppColors.darkGreen,
+              size: 20,
+            ),
           ),
           IconButton(
             tooltip: 'Hapus produk',
             onPressed: onDelete,
-            icon: const Icon(Icons.delete_outline,
-                color: AppColors.terracotta, size: 20),
+            icon: const Icon(
+              Icons.delete_outline,
+              color: AppColors.terracotta,
+              size: 20,
+            ),
           ),
         ],
       ),

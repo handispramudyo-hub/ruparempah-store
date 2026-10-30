@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../theme/app_theme.dart';
 import '../utils/product_visual.dart';
+import 'product_image.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -50,8 +51,9 @@ class ProductCard extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(20)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
                 ),
                 child: Stack(
                   children: [
@@ -67,7 +69,19 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Center(child: Icon(icon, size: 54, color: color)),
+                    if (product.imagePath.isNotEmpty)
+                      Positioned.fill(
+                        child: ProductImage(
+                          imagePath: product.imagePath,
+                          fit: BoxFit.cover,
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                          fallback: const SizedBox.shrink(),
+                        ),
+                      )
+                    else
+                      Center(child: Icon(icon, size: 54, color: color)),
                     Positioned(
                       right: 8,
                       bottom: 8,
@@ -104,8 +118,10 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.sageGreen.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(10),
@@ -138,8 +154,11 @@ class ProductCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const Icon(Icons.chevron_right,
-                            size: 16, color: AppColors.muted),
+                        const Icon(
+                          Icons.chevron_right,
+                          size: 16,
+                          color: AppColors.muted,
+                        ),
                       ],
                     ),
                   ),

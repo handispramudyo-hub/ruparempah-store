@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../config/app_config.dart';
@@ -9,6 +10,7 @@ import '../providers/product_provider.dart';
 import '../theme/app_theme.dart';
 import '../utils/product_visual.dart';
 import '../widgets/gradient_button.dart';
+import '../widgets/product_image.dart';
 
 class ProductFormScreen extends StatefulWidget {
   const ProductFormScreen({super.key, this.product});
@@ -27,6 +29,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   late final TextEditingController _description;
   late final TextEditingController _additionalInfo;
   bool _saving = false;
+  String _pickedImagePath = '';
 
   bool get _isEdit => widget.product != null;
 
@@ -36,11 +39,10 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     final p = widget.product;
     _name = TextEditingController(text: p?.name ?? '');
     _category = TextEditingController(text: p?.category ?? '');
-    _price = TextEditingController(
-      text: p == null ? '' : '${p.price}',
-    );
+    _price = TextEditingController(text: p == null ? '' : '${p.price}');
     _description = TextEditingController(text: p?.description ?? '');
     _additionalInfo = TextEditingController(text: p?.additionalInfo ?? '');
+    _pickedImagePath = p?.imagePath ?? '';
   }
 
   @override
@@ -64,7 +66,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       category: _category.text.trim(),
       price: int.parse(_price.text.replaceAll('.', '')),
       description: _description.text.trim(),
-      imagePath: widget.product?.imagePath ?? '',
+      imagePath: _pickedImagePath.isNotEmpty
+          ? _pickedImagePath
+          : (widget.product?.imagePath ?? ''),
       additionalInfo: _additionalInfo.text.trim(),
     );
     if (_isEdit) {
@@ -78,22 +82,29 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     Navigator.of(context).pop(product);
   }
 
+  Future<void> _pickImage() async {
+    final XFile? image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1024,
+      imageQuality: 70,
+    );
+    if (image == null) return;
+    setState(() => _pickedImagePath = image.path);
+  }
+
   @override
   Widget build(BuildContext context) {
     final categories = <String>{
       ...context.watch<ProductProvider>().categories,
       ...AppConfig.productCategories,
-    }.toList()
-      ..sort();
+    }.toList()..sort();
     final previewColor = ProductVisual.colorFor(
       widget.product?.id ?? _category.text,
     );
     final previewIcon = ProductVisual.iconFor(_category.text);
     return Scaffold(
       backgroundColor: AppColors.cream,
-      appBar: AppBar(
-        title: Text(_isEdit ? 'Edit Produk' : 'Tambah Produk'),
-      ),
+      appBar: AppBar(title: Text(_isEdit ? 'Edit Produk' : 'Tambah Produk')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 28),
         child: Form(
@@ -204,11 +215,11 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
-                        color: selected
-                            ? AppColors.darkGreen
-                            : AppColors.white,
+                        color: selected ? AppColors.darkGreen : AppColors.white,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           color: selected
@@ -222,15 +233,49 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                           fontFamily: AppTheme.body,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: selected
-                              ? Colors.white
-                              : AppColors.charcoal,
+                          color: selected ? Colors.white : AppColors.charcoal,
                         ),
                       ),
                     ),
                   );
                 }).toList(),
               ),
+              if (_pickedImagePath.isNotEmpty) ...[
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        previewColor.withValues(alpha: 0.35),
+                        previewColor.withValues(alpha: 0.12),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: SizedBox(
+                      height: 140,
+                      width: double.infinity,
+                      child: ProductImage(
+                        imagePath: _pickedImagePath,
+                        fit: BoxFit.cover,
+                        fallback: Container(
+                          color: AppColors.white.withValues(alpha: 0.7),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                OutlinedButton.icon(
+                  onPressed: _pickImage,
+                  icon: const Icon(Icons.photo_library_outlined),
+                  label: const Text('Ganti Gambar Produk'),
+                ),
+              ],
               const SizedBox(height: 14),
               TextFormField(
                 controller: _price,

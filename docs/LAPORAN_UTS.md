@@ -65,12 +65,12 @@ lib/
 5. **Interaksi Produk**
    - **Klik nama produk** → membuka **Detail Produk** (tidak menambah transaksi).
    - **Klik gambar produk** → **menambahkan produk ke keranjang** (produk sama menambah jumlah) + snackbar feedback.
-6. **Detail Produk** — Hero gambar (placeholder), nama, kategori, harga, deskripsi, info tambahan, tombol tambah ke keranjang, dan tombol kembali.
+6. **Detail Produk** — Hero gambar (placeholder/luaran), nama, kategori, harga, deskripsi, info tambahan, tombol tambah ke keranjang, dan tombol kembali.
 7. **Keranjang** — Tambah/kurangi jumlah, hapus item, subtotal & total otomatis.
 8. **Pembayaran** — Total transaksi, input nominal (angka saja), validasi uang kurang, kembalian otomatis, proses pembayaran, bukti transaksi, keranjang dikosongkan setelah berhasil.
 9. **Call Center / SMS Center** — Di Android/iOS langsung membuka aplikasi telepon/SMS via `tel:` dan `sms:`. Di browser desktop, tampil **bottom sheet kontak** dengan opsi Telepon, Chat WhatsApp (`wa.me`), Kirim SMS, dan Salin Nomor — sehingga tetap berfungsi meski perangkat tidak punya aplikasi telepon/SMS.
 10. **Lokasi/Maps** — Membuka Google Maps dengan query lokasi yang dapat dikonfigurasi.
-11. **Kelola Produk (CRUD)** — Menu **Kelola** / **Kelola Produk** untuk menambah, mengedit, dan menghapus produk. Data tersimpan di SharedPreferences (bertahan setelah aplikasi ditutup), kategori dashboard menyesuaikan otomatis, dan perubahan/hapus produk ikut disinkronkan ke keranjang. Hapus produk memakai dialog konfirmasi + aksi **Urungkan**.
+11. **Kelola Produk (CRUD)** — Menu **Kelola** / **Kelola Produk** untuk menambah, mengedit, dan menghapus produk. Data tersimpan di SharedPreferences (bertahan setelah aplikasi ditutup), kategori dashboard menyesuaikan otomatis, dan perubahan/hapus produk ikut disinkronkan ke keranjang. Hapus produk memakai dialog konfirmasi + aksi **Urungkan**. Gambar produk bisa diambil dari galeri (image_picker) dan path-nya ikut tersimpan di katalog produk.
 12. **Update User & Password** — Ubah username/password dengan validasi & konfirmasi; akun baru langsung dapat dipakai login.
 13. **Logout** — Menghapus status login dan kembali ke halaman login.
 
