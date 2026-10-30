@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,13 +22,18 @@ Future<(Widget, CartProvider, ProductProvider)> _app(Widget home) async {
   await products.load();
   final cart = CartProvider(prefs);
   await cart.load(products.products);
-  final widget = MultiProvider(
-    providers: [
-      Provider<AuthService>.value(value: auth),
-      ChangeNotifierProvider<ProductProvider>.value(value: products),
-      ChangeNotifierProvider<CartProvider>.value(value: cart),
-    ],
-    child: MaterialApp(theme: AppTheme.light(), home: home),
+  final widget = ScreenUtilInit(
+    designSize: const Size(375, 812),
+    minTextAdapt: true,
+    splitScreenMode: true,
+    builder: (context, child) => MultiProvider(
+      providers: [
+        Provider<AuthService>.value(value: auth),
+        ChangeNotifierProvider<ProductProvider>.value(value: products),
+        ChangeNotifierProvider<CartProvider>.value(value: cart),
+      ],
+      child: MaterialApp(theme: AppTheme.light(), home: home),
+    ),
   );
   return (widget, cart, products);
 }
@@ -42,7 +48,7 @@ void main() {
     await tester.pumpWidget(widget);
     await tester.pumpAndSettle();
 
-    expect(find.text('Rupa Rempah Store'), findsOneWidget);
+    expect(find.text('Categories'), findsOneWidget);
     expect(find.text(productList.first.name), findsOneWidget);
 
     await tester.drag(
@@ -60,6 +66,9 @@ void main() {
     await tester.pumpAndSettle();
     expect(cart.totalItems, 1);
 
+    await tester.pump(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
+
     await tester.tap(find.text(productList.first.name));
     await tester.pumpAndSettle();
 
@@ -75,7 +84,9 @@ void main() {
     await tester.pumpWidget(widget);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Kelola'));
+    await tester.tap(find.byIcon(Icons.more_vert));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Kelola Produk'));
     await tester.pumpAndSettle();
     expect(find.text('Kelola Produk'), findsOneWidget);
 

@@ -113,7 +113,7 @@ class ProductCard extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+              padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,7 +136,7 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 3),
                   GestureDetector(
                     onTap: onNameTap,
                     child: Row(
@@ -149,7 +149,7 @@ class ProductCard extends StatelessWidget {
                             style: const TextStyle(
                               fontFamily: AppTheme.heading,
                               fontWeight: FontWeight.w700,
-                              fontSize: 13.5,
+                              fontSize: 12.5,
                               color: AppColors.charcoal,
                             ),
                           ),
@@ -168,7 +168,7 @@ class ProductCard extends StatelessWidget {
                     style: const TextStyle(
                       fontFamily: AppTheme.heading,
                       fontWeight: FontWeight.w700,
-                      fontSize: 14,
+                      fontSize: 13,
                       color: AppColors.terracotta,
                     ),
                   ),
