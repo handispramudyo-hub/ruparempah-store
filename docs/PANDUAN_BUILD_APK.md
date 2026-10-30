@@ -1,6 +1,6 @@
 # PANDUAN BUILD APK — TANPA ANDROID STUDIO
 
-Mesin ini belum memiliki Android SDK lengkap, sehingga APK belum bisa dibuat.
+Status: Android SDK kini sudah cukup untuk build APK dari mesin ini (build berhasil).
 Ikuti langkah berikut (Command-Line Tools saja, tanpa membuka Android Studio).
 
 ## 1. Unduh Command-Line Tools

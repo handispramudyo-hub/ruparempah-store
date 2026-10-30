@@ -100,7 +100,7 @@ lib/
 > Catatan: Screenshot aplikasi perlu diambil manual saat demonstrasi (belum disertakan sebagai bukti fiktif).
 
 ## 7. Status Build APK
-**BELUM DIBANGUN di mesin ini.** Alasan teknis: folder Android SDK yang ada
+**BERHASIL DIBANGUN di mesin ini.** File APK: `build\app\outputs\flutter-apk\app-release.apk` (49.2MB).
 (`C:\Users\sandi\AppData\Local\Android\Sdk`) tidak lengkap — tidak memiliki
 `cmdline-tools`, `platform-tools`, `build-tools`, dan `platforms`.
 APK **tidak** diklaim berhasil sebelum file benar-benar ada.
