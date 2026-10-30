@@ -270,13 +270,17 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                   ),
                 ),
                 const SizedBox(height: 14),
-                OutlinedButton.icon(
-                  onPressed: _pickImage,
-                  icon: const Icon(Icons.photo_library_outlined),
-                  label: const Text('Ganti Gambar Produk'),
-                ),
               ],
-              const SizedBox(height: 14),
+              OutlinedButton.icon(
+                onPressed: _pickImage,
+                icon: const Icon(Icons.photo_library_outlined),
+                label: Text(
+                  _pickedImagePath.isNotEmpty
+                      ? 'Ganti Gambar Produk'
+                      : 'Tambah Gambar Produk',
+                ),
+              ),
+              const SizedBox(height: 18),
               TextFormField(
                 controller: _price,
                 keyboardType: TextInputType.number,
