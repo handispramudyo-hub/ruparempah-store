@@ -30,9 +30,7 @@ class _ContactSheet extends StatelessWidget {
     final messenger = ScaffoldMessenger.of(context);
     final ok = await action();
     if (context.mounted) Navigator.of(context).pop();
-    messenger.showSnackBar(
-      SnackBar(content: Text(ok ? success : failure)),
-    );
+    messenger.showSnackBar(SnackBar(content: Text(ok ? success : failure)));
   }
 
   Future<void> _copy(BuildContext context) async {
@@ -40,9 +38,7 @@ class _ContactSheet extends StatelessWidget {
     await LauncherService.copyPhone(AppConfig.storePhone);
     if (context.mounted) Navigator.of(context).pop();
     messenger.showSnackBar(
-      SnackBar(
-        content: Text('Nomor ${AppConfig.storePhone} disalin.'),
-      ),
+      SnackBar(content: Text('Nomor ${AppConfig.storePhone} disalin.')),
     );
   }
 
@@ -67,10 +63,8 @@ class _ContactSheet extends StatelessWidget {
       highlighted: highlight == 'sms',
       onTap: () => _run(
         context,
-        () => LauncherService.sendSms(
-          AppConfig.storePhone,
-          AppConfig.smsMessage,
-        ),
+        () =>
+            LauncherService.sendSms(AppConfig.storePhone, AppConfig.smsMessage),
         'Membuka aplikasi SMS...',
         'Aplikasi SMS tidak tersedia. Gunakan WhatsApp.',
       ),
@@ -135,8 +129,11 @@ class _ContactSheet extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(14),
                     ),
-                    child: const Icon(Icons.support_agent,
-                        color: Colors.white, size: 28),
+                    child: const Icon(
+                      Icons.support_agent,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   const Expanded(
@@ -205,53 +202,53 @@ class _ActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Material(
         color: highlighted
             ? AppColors.sageGreen.withValues(alpha: 0.16)
             : AppColors.cream,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: highlighted ? AppColors.sageGreen : AppColors.line,
-        ),
-      ),
-      child: ListTile(
-        onTap: onTap,
+        clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(14),
-        ),
-        leading: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: highlighted ? AppColors.darkGreen : AppColors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(
-            icon,
-            color: highlighted ? Colors.white : AppColors.darkGreen,
-            size: 20,
+          side: BorderSide(
+            color: highlighted ? AppColors.sageGreen : AppColors.line,
           ),
         ),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontFamily: AppTheme.heading,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.charcoal,
+        child: ListTile(
+          onTap: onTap,
+          leading: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: highlighted ? AppColors.darkGreen : AppColors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              icon,
+              color: highlighted ? Colors.white : AppColors.darkGreen,
+              size: 20,
+            ),
           ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: const TextStyle(
-            fontFamily: AppTheme.body,
-            fontSize: 12,
-            color: AppColors.muted,
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontFamily: AppTheme.heading,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.charcoal,
+            ),
           ),
+          subtitle: Text(
+            subtitle,
+            style: const TextStyle(
+              fontFamily: AppTheme.body,
+              fontSize: 12,
+              color: AppColors.muted,
+            ),
+          ),
+          trailing: const Icon(Icons.chevron_right, size: 18),
         ),
-        trailing: const Icon(Icons.chevron_right, size: 18),
       ),
     );
   }

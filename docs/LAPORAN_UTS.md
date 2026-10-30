@@ -77,7 +77,7 @@ lib/
 ## 6. Hasil Pengujian
 ### Otomatis
 - `flutter analyze` → **No issues found**
-- `flutter test` → **14 tests passed**
+- `flutter test` → **15 tests passed**
   - Subtotal = harga × jumlah
   - Total = jumlah seluruh subtotal
   - Total item menghitung kuantitas
@@ -89,6 +89,7 @@ lib/
   - Produk: katalog awal dimuat, tambah/edit/hapus tersimpan, keranjang ikut update harga
   - UI: Dashboard dapat di-scroll tanpa overflow, klik gambar menambah keranjang, klik nama membuka detail
   - UI: Alur tambah, edit, dan hapus produk dari menu Kelola
+  - UI: Menu Call Center menampilkan opsi Telepon/WhatsApp/SMS/Salin Nomor
   - UI: Alur pembayaran "Uang Pas" menampilkan bukti transaksi
 
 ### Manual (Chrome)

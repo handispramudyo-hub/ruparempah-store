@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -128,6 +129,31 @@ void main() {
     await tester.tap(find.text('Hapus'));
     await tester.pumpAndSettle();
     expect(products.products.any((p) => p.id == target.id), false);
+  });
+
+  testWidgets('menu Call Center menampilkan opsi kontak', (tester) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.windows;
+    await tester.binding.setSurfaceSize(const Size(390, 844));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    try {
+      final (widget, _, _) = await _app(const DashboardScreen());
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.more_vert));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Call Center'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Hubungi Kami'), findsOneWidget);
+      expect(find.text('Telepon Sekarang'), findsOneWidget);
+      expect(find.text('Chat WhatsApp'), findsOneWidget);
+      expect(find.text('Kirim SMS'), findsOneWidget);
+      expect(find.text('Salin Nomor'), findsOneWidget);
+    } finally {
+      debugDefaultTargetPlatformOverride = null;
+    }
   });
 
   testWidgets('pembayaran dengan uang pas menampilkan bukti transaksi',

@@ -514,7 +514,13 @@ class _MenuRow extends StatelessWidget {
       children: [
         Icon(icon, size: 18, color: AppColors.darkGreen),
         const SizedBox(width: 10),
-        Text(label),
+        Expanded(
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }
