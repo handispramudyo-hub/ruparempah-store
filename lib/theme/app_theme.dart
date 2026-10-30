@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const sageGreen = Color(0xFF8FAF8B);
-  static const darkGreen = Color(0xFF355B3B);
-  static const deepGreen = Color(0xFF24402A);
-  static const olive = Color(0xFF667C45);
-  static const cream = Color(0xFFF7F5EC);
+  static const sageGreen = Color(0xFF23AA49);
+  static const darkGreen = Color(0xFF23AA49);
+  static const deepGreen = Color(0xFF1A3848);
+  static const olive = Color(0xFF23AA49);
+  static const cream = Color(0xFFFFFFFF);
   static const white = Color(0xFFFFFFFF);
   static const charcoal = Color(0xFF252A24);
   static const softGold = Color(0xFFD4AF37);
-  static const terracotta = Color(0xFFB85C38);
-  static const muted = Color(0xFF7A6A5A);
-  static const line = Color(0xFFE2DDCF);
+  static const terracotta = Color(0xFFFF324B);
+  static const muted = Color(0xFF979899);
+  static const line = Color(0xFFF1F1F5);
 }
 
 class AppGradients {
@@ -41,8 +41,8 @@ class AppGradients {
 }
 
 class AppTheme {
-  static const heading = 'Montserrat';
-  static const body = 'NunitoSans';
+  static const heading = 'Poppins';
+  static const body = 'Poppins';
 
   static ThemeData light() {
     final colorScheme = ColorScheme.fromSeed(

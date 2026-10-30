@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
@@ -14,9 +15,16 @@ Future<void> main() async {
   await productProvider.load();
   final cartProvider = CartProvider(prefs);
   await cartProvider.load(productProvider.products);
-  runApp(RupaRempahApp(
-    authService: authService,
-    cartProvider: cartProvider,
-    productProvider: productProvider,
-  ));
+  runApp(
+    ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => RupaRempahApp(
+        authService: authService,
+        cartProvider: cartProvider,
+        productProvider: productProvider,
+      ),
+    ),
+  );
 }
